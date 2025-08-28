@@ -1,6 +1,8 @@
 # data preprocessing for x2robot raw data   
 
 import numpy as np
+from collections import defaultdict
+
 import imageio
 import json
 import os
@@ -8,9 +10,8 @@ import tqdm
 import random
 import torch
 import re
-from collections import defaultdict
-from x2robot_dataset.common.data_utils import print_rank0
 
+from x2robot_dataset.common.data_utils import print_rank0
 
 def check_files(video_file_groups,
                 cam_list,
@@ -152,12 +153,12 @@ _ACTION_KEY_FULL_MAPPING = {
     'follow_right_arm_joint_pos': 'follow_right_joint_pos',
     'follow_right_arm_joint_dev': 'follow_right_joint_dev',
     'follow_right_arm_joint_cur': 'follow_right_joint_cur',
-    'follow_right_ee_cartesian_pos': 'follow_right_position_smooth',
-    'follow_right_ee_cartesian_pos_relative': 'follow_right_position_smooth',
-    'follow_right_ee_rotation': 'follow_right_rotation_smooth',
-    'follow_right_ee_rotation_relative': 'follow_right_rotation_smooth',
-    'follow_right_ee_rotation_6D': 'follow_right_rotation_smooth',
-    'follow_right_ee_rotation_6D_relative': 'follow_right_rotation_smooth',
+    'follow_right_ee_cartesian_pos': 'follow_right_position',
+    'follow_right_ee_cartesian_pos_relative': 'follow_right_position',
+    'follow_right_ee_rotation': 'follow_right_rotation',
+    'follow_right_ee_rotation_relative': 'follow_right_rotation',
+    'follow_right_ee_rotation_6D': 'follow_right_rotation',
+    'follow_right_ee_rotation_6D_relative': 'follow_right_rotation',
     'follow_right_gripper': 'follow_right_gripper',
     'master_right_arm_joint_pos': 'master_right_joint_pos',
     'master_right_arm_joint_dev': 'master_right_joint_dev',
@@ -172,12 +173,12 @@ _ACTION_KEY_FULL_MAPPING = {
     'follow_left_arm_joint_pos': 'follow_left_joint_pos',
     'follow_left_arm_joint_dev': 'follow_left_joint_dev',
     'follow_left_arm_joint_cur': 'follow_left_joint_cur',
-    'follow_left_ee_cartesian_pos': 'follow_left_position_smooth',
-    'follow_left_ee_cartesian_pos_relative': 'follow_left_position_smooth',
-    'follow_left_ee_rotation': 'follow_left_rotation_smooth',
-    'follow_left_ee_rotation_relative': 'follow_left_rotation_smooth',
-    'follow_left_ee_rotation_6D': 'follow_left_rotation_smooth',
-    'follow_left_ee_rotation_6D_relative': 'follow_left_rotation_smooth',
+    'follow_left_ee_cartesian_pos': 'follow_left_position',
+    'follow_left_ee_cartesian_pos_relative': 'follow_left_position',
+    'follow_left_ee_rotation': 'follow_left_rotation',
+    'follow_left_ee_rotation_relative': 'follow_left_rotation',
+    'follow_left_ee_rotation_6D': 'follow_left_rotation',
+    'follow_left_ee_rotation_6D_relative': 'follow_left_rotation',
     'follow_left_gripper': 'follow_left_gripper',
     'master_left_arm_joint_pos': 'master_left_joint_pos',
     'master_left_arm_joint_dev': 'master_left_joint_dev',
